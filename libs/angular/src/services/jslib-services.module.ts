@@ -337,7 +337,12 @@ import { AbstractThemingService } from "./theming/theming.service.abstraction";
       useClass: AvatarUpdateService,
       deps: [ApiServiceAbstraction, StateServiceAbstraction],
     },
-    { provide: LogService, useFactory: () => new ConsoleLogService(false) },
+    // { provide: LogService, useFactory: () => new ConsoleLogService(false) }
+    // A by LJ 2023-9-19 18:27:34  isDev 动态设置
+    {
+      provide: LogService,
+      useFactory: () => new ConsoleLogService(process.env.ENV == "development"),
+    },
     {
       provide: CollectionServiceAbstraction,
       useClass: CollectionService,

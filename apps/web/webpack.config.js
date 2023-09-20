@@ -17,7 +17,7 @@ const ENV = process.env.ENV == null ? "development" : process.env.ENV;
 const NODE_ENV = process.env.NODE_ENV == null ? "development" : process.env.NODE_ENV;
 const LOGGING = process.env.LOGGING != "false";
 
-const envConfig = config.load(ENV);
+const envConfig = config.load(ENV); //:默认加载 ./config/development.json
 if (LOGGING) {
   config.log(envConfig);
 }
@@ -192,32 +192,32 @@ const devServer =
         proxy: {
           "/api": {
             target: envConfig.dev?.proxyApi,
-            pathRewrite: { "^/api": "" },
+            // pathRewrite: { "^/api": "" }, //:服务端接口 "/api/xxx"
             secure: false,
             changeOrigin: true,
           },
           "/identity": {
             target: envConfig.dev?.proxyIdentity,
-            pathRewrite: { "^/identity": "" },
+            // pathRewrite: { "^/identity": "" },
             secure: false,
             changeOrigin: true,
           },
           "/events": {
             target: envConfig.dev?.proxyEvents,
-            pathRewrite: { "^/events": "" },
+            // pathRewrite: { "^/events": "" },
             secure: false,
             changeOrigin: true,
           },
           "/notifications": {
             target: envConfig.dev?.proxyNotifications,
-            pathRewrite: { "^/notifications": "" },
+            // pathRewrite: { "^/notifications": "" },
             secure: false,
             changeOrigin: true,
             ws: true,
           },
           "/icons": {
             target: envConfig.dev?.proxyIcons,
-            pathRewrite: { "^/icons": "" },
+            // pathRewrite: { "^/icons": "" },
             secure: false,
             changeOrigin: true,
           },

@@ -130,6 +130,7 @@ import { AppIdService } from "../platform/abstractions/app-id.service";
 import { EnvironmentService } from "../platform/abstractions/environment.service";
 import { PlatformUtilsService } from "../platform/abstractions/platform-utils.service";
 import { Utils } from "../platform/misc/utils";
+import Log from "../tools/log";
 import { AttachmentRequest } from "../vault/models/request/attachment.request";
 import { CipherBulkDeleteRequest } from "../vault/models/request/cipher-bulk-delete.request";
 import { CipherBulkMoveRequest } from "../vault/models/request/cipher-bulk-move.request";
@@ -1941,6 +1942,9 @@ export class ApiService implements ApiServiceAbstraction {
     }
 
     requestInit.headers = headers;
+    Log.debug(requestUrl, requestInit.body, (arr: any[]) =>
+      headers.forEach((v, k) => arr.push(k + ":" + v))
+    );
     const response = await this.fetch(new Request(requestUrl, requestInit));
 
     const responseType = response.headers.get("content-type");

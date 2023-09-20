@@ -868,9 +868,10 @@ export class CryptoService implements CryptoServiceAbstraction {
   ): Promise<[T, EncString]> {
     let protectedSymKey: EncString = null;
     if (encryptionKey.key.byteLength === 32) {
-      const stretchedEncryptionKey = await this.stretchKey(encryptionKey);
+      const stretchedEncryptionKey = await this.stretchKey(encryptionKey); //: HKDF -> Stretched Master Key
       protectedSymKey = await this.encryptService.encrypt(newSymKey, stretchedEncryptionKey);
     } else if (encryptionKey.key.byteLength === 64) {
+      //: Master Key 本身够长, 就不用 stretch 了
       protectedSymKey = await this.encryptService.encrypt(newSymKey, encryptionKey);
     } else {
       throw new Error("Invalid key size.");

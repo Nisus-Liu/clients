@@ -93,8 +93,7 @@ export class PasswordLogInStrategy extends LogInStrategy {
 
   override async logIn(credentials: PasswordLogInCredentials) {
     const { email, masterPassword, captchaToken, twoFactor } = credentials;
-
-    this.masterKey = await this.authService.makePreloginKey(masterPassword, email);
+    this.masterKey = await this.authService.makePreloginKey(masterPassword, email); //:可以看到 master Key 前端处理过程
 
     // Hash the password early (before authentication) so we don't persist it in memory in plaintext
     this.localMasterKeyHash = await this.cryptoService.hashMasterKey(

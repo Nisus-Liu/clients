@@ -1,0 +1,10 @@
+{
+  "dev": {
+    "proxyApi": "http://127.0.0.1:4000",
+    "proxyIdentity": "http://127.0.0.1:4000",
+    "proxyEvents": "http://127.0.0.1:4000",
+    "proxyNotifications": "http://127.0.0.1:4000",
+    "allowedHosts": ["hostnames-to-allow-in-webpack"]
+  },
+  "urls": {}
+}

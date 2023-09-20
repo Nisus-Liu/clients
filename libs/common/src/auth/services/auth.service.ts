@@ -125,7 +125,9 @@ export class AuthService implements AuthServiceAbstraction {
       | SsoLogInStrategy
       | PasswordlessLogInStrategy;
 
-    switch (credentials.type) {
+    switch (
+      credentials.type //:策略模式, 执行登录策略
+    ) {
       case AuthenticationType.Password:
         strategy = new PasswordLogInStrategy(
           this.cryptoService,

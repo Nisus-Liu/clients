@@ -271,19 +271,19 @@ export class RegisterComponent extends CaptchaProtectedComponent implements OnIn
     const hint = this.formGroup.value.hint;
     const kdf = DEFAULT_KDF_TYPE;
     const kdfConfig = DEFAULT_KDF_CONFIG;
-    const key = await this.cryptoService.makeMasterKey(masterPassword, email, kdf, kdfConfig);
-    const newUserKey = await this.cryptoService.makeUserKey(key);
-    const masterKeyHash = await this.cryptoService.hashMasterKey(masterPassword, key);
-    const keys = await this.cryptoService.makeKeyPair(newUserKey[0]);
+    const key = await this.cryptoService.makeMasterKey(masterPassword, email, kdf, kdfConfig); //: Master Key
+    const newUserKey = await this.cryptoService.makeUserKey(key); //: Protected Symmetric Key, Master Key 对其 AES 加密的, 后面会存DB
+    const masterKeyHash = await this.cryptoService.hashMasterKey(masterPassword, key); //: pbkdf2(Master Key, masterPassword) -> Master Password Hash, 后面会存DB
+    const keys = await this.cryptoService.makeKeyPair(newUserKey[0]); //: RSA Keypair, [公钥, 对称加密的私钥]
     const request = new RegisterRequest(
       email,
       name,
-      masterKeyHash,
+      masterKeyHash, //:masterPasswordHash
       hint,
-      newUserKey[1].encryptedString,
+      newUserKey[1].encryptedString, //: Protected Symmetric Key
       this.referenceData,
       this.captchaToken,
-      kdf,
+      kdf, // kdf 算法类型
       kdfConfig.iterations,
       kdfConfig.memory,
       kdfConfig.parallelism

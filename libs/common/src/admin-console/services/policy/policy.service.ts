@@ -168,32 +168,36 @@ export class PolicyService implements InternalPolicyServiceAbstraction {
 
     if (
       enforcedPolicyOptions.minComplexity > 0 &&
-      enforcedPolicyOptions.minComplexity > passwordStrength
+      enforcedPolicyOptions.minComplexity > passwordStrength //:密码强度不够
     ) {
       return false;
     }
 
     if (
       enforcedPolicyOptions.minLength > 0 &&
-      enforcedPolicyOptions.minLength > newPassword.length
+      enforcedPolicyOptions.minLength > newPassword.length //:长度不够
     ) {
       return false;
     }
 
     if (enforcedPolicyOptions.requireUpper && newPassword.toLocaleLowerCase() === newPassword) {
+      //:没有大写字母
       return false;
     }
 
     if (enforcedPolicyOptions.requireLower && newPassword.toLocaleUpperCase() === newPassword) {
+      //:没有小写字母
       return false;
     }
 
     if (enforcedPolicyOptions.requireNumbers && !/[0-9]/.test(newPassword)) {
+      //:没有数字
       return false;
     }
 
     // eslint-disable-next-line
     if (enforcedPolicyOptions.requireSpecial && !/[!@#$%\^&*]/g.test(newPassword)) {
+      //:没有特殊字符
       return false;
     }
 

@@ -235,7 +235,7 @@ export class LoginComponent extends CaptchaProtectedComponent implements OnInit 
     const emailInvalid = this.formGroup.get("email").invalid;
     if (!emailInvalid) {
       this.toggleValidateEmail(true);
-      await this.getLoginWithDevice(this.loggedEmail);
+      await this.getLoginWithDevice(this.loggedEmail); //:this.formGroup.value.email
     }
   }
 
@@ -299,6 +299,7 @@ export class LoginComponent extends CaptchaProtectedComponent implements OnInit 
   async getLoginWithDevice(email: string) {
     try {
       const deviceIdentifier = await this.appIdService.getAppId();
+      this.logService.debug(`deviceIdentifier: ${deviceIdentifier}, email: "${email}"`);
       this.showLoginWithDevice = await this.devicesApiService.getKnownDevice(
         email,
         deviceIdentifier

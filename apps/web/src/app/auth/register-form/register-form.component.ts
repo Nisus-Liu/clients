@@ -83,6 +83,7 @@ export class RegisterFormComponent extends BaseRegisterComponent {
 
   async submit() {
     if (
+      //:有密码规则要求, 则校验之, 不符合, 提示 error
       this.enforcedPolicyOptions != null &&
       !this.policyService.evaluateMasterPassword(
         this.passwordStrengthResult.score,

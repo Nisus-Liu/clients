@@ -195,7 +195,7 @@ export class LoginComponent extends BaseLoginComponent implements OnInit, OnDest
     const email = this.formGroup.value.email;
 
     if (email) {
-      this.router.navigate(["/register"], { queryParams: { email: email } });
+      this.router.navigate(["/register"], { queryParams: { email: email } }); //:https://localhost:8080/#/register?email=123@test.com
       return;
     }
 

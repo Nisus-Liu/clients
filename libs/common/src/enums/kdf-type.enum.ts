@@ -2,7 +2,7 @@ import { KdfConfig } from "../auth/models/domain/kdf-config";
 
 export enum KdfType {
   PBKDF2_SHA256 = 0,
-  Argon2id = 1,
+  Argon2id = 1, //:Argon2 据有文章介绍, 更抗暴力破解
 }
 
 export const DEFAULT_ARGON2_MEMORY = 64;

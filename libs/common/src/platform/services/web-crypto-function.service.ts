@@ -43,7 +43,7 @@ export class WebCryptoFunctionService implements CryptoFunctionService {
       false,
       ["deriveBits"]
     );
-    const buffer = await this.subtle.deriveBits(pbkdf2Params as any, impKey, wcLen);
+    const buffer = await this.subtle.deriveBits(pbkdf2Params as any, impKey, wcLen); //:据文档, 这里应该是调用三方库计算的
     return new Uint8Array(buffer);
   }
 
