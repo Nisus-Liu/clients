@@ -139,7 +139,7 @@ export class StateService<
 
     await this.state().then(async (state) => {
       if (state == null) {
-        await this.setState(new State<TGlobalState, TAccount>(this.createGlobals()));
+        await this.setState(new State<TGlobalState, TAccount>(this.createGlobals())); //:初始化 state
       } else {
         this.isRecoveredSession = true;
       }
@@ -158,6 +158,7 @@ export class StateService<
       state.authenticatedAccounts =
         (await this.storageService.get<string[]>(keys.authenticatedAccounts)) ?? [];
       for (const i in state.authenticatedAccounts) {
+        //: userId array
         if (i != null) {
           await this.syncAccountFromDisk(state.authenticatedAccounts[i]);
         }

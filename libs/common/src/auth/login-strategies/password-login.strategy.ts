@@ -93,19 +93,20 @@ export class PasswordLogInStrategy extends LogInStrategy {
 
   override async logIn(credentials: PasswordLogInCredentials) {
     const { email, masterPassword, captchaToken, twoFactor } = credentials;
-    this.masterKey = await this.authService.makePreloginKey(masterPassword, email); //:可以看到 master Key 前端处理过程
+    this.masterKey = await this.authService.makePreloginKey(masterPassword, email); //:可以看到 master Key 前端处理过程. 从后端取kdf参数配置, kdf迭代得到 Master Key
 
-    // Hash the password early (before authentication) so we don't persist it in memory in plaintext
+    // Hash the password early (before authentication) so we don't persist it in memory in plaintext  ???
     this.localMasterKeyHash = await this.cryptoService.hashMasterKey(
+      // Master Key , password 为salt, kdf => Master Key Hash
       masterPassword,
       this.masterKey,
-      HashPurpose.LocalAuthorization
+      HashPurpose.LocalAuthorization //: Local 迭代2次
     );
     const masterKeyHash = await this.cryptoService.hashMasterKey(masterPassword, this.masterKey);
 
     this.tokenRequest = new PasswordTokenRequest(
       email,
-      masterKeyHash,
+      masterKeyHash, //: 发送到服务端, 服务端比对
       captchaToken,
       await this.buildTwoFactor(twoFactor),
       await this.buildDeviceRequest()

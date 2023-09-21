@@ -214,6 +214,7 @@ export class Utils {
 
   // ref: http://stackoverflow.com/a/2117523/1090359
   static newGuid(): string {
+    //:?如何提高唯一性概率?
     return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
       const r = (Math.random() * 16) | 0;
       const v = c === "x" ? r : (r & 0x3) | 0x8;

@@ -177,7 +177,7 @@ export class EnvironmentService implements EnvironmentServiceAbstraction {
 
   async setUrlsFromStorage(): Promise<void> {
     const region = await this.stateService.getRegion();
-    const savedUrls = await this.stateService.getEnvironmentUrls(); //:这里渠道 urls 其中应该就有 apiUrl
+    const savedUrls = await this.stateService.getEnvironmentUrls(); //:这里取到 urls 其中应该就有 apiUrl
     const envUrls = new EnvironmentUrls();
 
     // In release `2023.5.0`, we set the `base` property of the environment URLs to the US web vault URL when a user clicked the "US" region.

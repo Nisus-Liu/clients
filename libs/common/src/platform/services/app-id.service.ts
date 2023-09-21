@@ -16,7 +16,7 @@ export class AppIdService implements AppIdServiceAbstraction {
 
   private async makeAndGetAppId(key: string) {
     const existingId = await this.storageService.get<string>(key, {
-      htmlStorageLocation: HtmlStorageLocation.Local,
+      htmlStorageLocation: HtmlStorageLocation.Local, //: 如果浏览器环境, 使用的 Local Storage
     });
     if (existingId != null) {
       return existingId;

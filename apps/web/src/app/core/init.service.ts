@@ -42,7 +42,7 @@ export class InitService {
       await this.stateService.init();
 
       const urls = process.env.URLS as Urls;
-      urls.base ??= this.win.location.origin;
+      urls.base ??= this.win.location.origin; //: base 默认是当前地址栏原始链接地址
       await this.environmentService.setUrls(urls);
       // Workaround to ignore stateService.activeAccount until process.env.URLS are set
       // TODO: Remove this when implementing ticket PM-2637
